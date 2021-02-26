@@ -67,7 +67,7 @@ public class FoodFactory {
 }
 
 ```
-3：*通过不同的参数获取到不同的对象。比如说加密方式（md5,base64.....）*
+3：*通过不同的参数获取到不同的对象。比如说加密方式（md5,base64.....）,dubbo的通讯协议等等*
 ```
 public class EncryptFactory {
 
@@ -83,12 +83,79 @@ public class EncryptFactory {
     }
 }
 ```
+***占个坑[spring中的Factory]()***
+
 
 #### 1.2 代理模式
-
+*代理模式作用就是“增强”。*  
+先用JDK的实现方式来说下代理模式。JDK代理是基于接口的形式的，所以一般我们的代理类和目标类都会去实现这个接口。
 ```
+/**
+ * 接口类
+ */
+public interface Start {
 
+    void singe();
+    
+    void rap();
+    
+    void basketBall();
+
+}
+
+
+/**
+ * 目标类
+ */
+public class KunKun implements Start {
+
+    public void singe() {
+        System.out.println("ji ni tai mei");
+    }
+
+    public void rap() {
+    }
+
+    public void basketBall() {
+    }
+}
+
+
+/**
+ * 代理类
+ */
+public class AgentHandler implements InvocationHandler {
+
+    private Object target;
+
+
+    AgentHandler(Object target) {
+        this.target = target;
+    }
+
+
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        Object o = method.invoke(target, args);
+        after();
+        return o;
+    }
+
+
+    private void after() {
+        System.out.println("6666");
+    }
+
+
+    /**
+     * 通过目标类的接口（Start）去创建一个代理类，这个代理类是实现了Start 接口类。然后这个代理类调用Start的方法都会走被转发到这个AgentHandler的invoke方法中
+     */
+    public Object create() {
+        return Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this);
+    }
+}
 ```
+***占坑[SpringAop中的代理，及Cglib和JDK代理区别]()***  
+*** 记一次生产事故导致，其中就是代理类的出现了问题（rabbitMq日志记录） ***
 #### 1.3 观察者模式
 ```
 
