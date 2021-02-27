@@ -5,6 +5,11 @@
     - [1.2 代理模式](#12-代理模式)
     - [1.3 观察者模式](#13-观察者模式)
     - [1.4 单例模式](#14-单例模式)
+    - [1.5 创建者模式](#15-创建者模式)
+    - [1.6 原型模式](#16-原型模式)
+    - [1.7 适配器模式](#17-适配器模式)
+    - [1.8 策略模式](#18-策略模式)
+    - [1.9 装饰模式](#19-装饰模式)
 <!-- /TOC -->
 
 
@@ -159,10 +164,102 @@ public class AgentHandler implements InvocationHandler {
 
 
 #### 1.3 观察者模式
-**观察者模式：**
+**观察者模式：定义对象间的一种一对多依赖关系，使得每当一个对象状态发生改变时，其相关依赖对象皆得到通知并被自动更新。**
 ```
+/**
+ * 观察者接口
+ */
+public interface Fan {
+
+
+    void update();
+}
+
+
+/**
+ * 被观察者
+ */
+public class KunKun {
+
+    private List<Fan> fans;
+
+    public KunKun() {
+        fans = new ArrayList<Fan>();
+    }
+
+    public void addFan(Fan fan) {
+        fans.add(fan);
+    }
+
+    public void notifyFan() {
+        for (Fan fan : fans) {
+            fan.update();
+        }
+    }
+}
+
+/**
+ * 观察者
+ */
+public class RapFan implements Fan {
+
+
+    public void update() {
+        System.out.println("Rap : UNKUN 出来了！");
+    }
+}
+
+
+/**
+ * 观察者
+ */
+public class SingFan implements Fan {
+
+    public void update() {
+        System.out.println("Sing ：KUNKUN 出来了！");
+    }
+}
+
+
+ /**
+  * 测试观察者模式
+  */
+public static void main(String[] args) {
+    KunKun kunKun = new KunKun();
+    kunKun.addFan(new RapFan());
+    kunKun.addFan(new SingFan());
+    kunKun.notifyFan();
+}
+
 
 ```
+JDK也提供了工具方法：Observable 被观察者类 和  Observer 观察者接口 。  
+结合实际业务，观察者模式带给我们的是模块的解耦。比如客户首次注册，会奖励一些积分，下次需要再奖励一个徽章。这种业务类型就可以用观察者模式。
+从上面代码看，"被观察者"需要维护"观察者"，而且在通知"观察者"是同步调用，这种方式其实对系统也是不友好的。这个时候***ApplicationEvent***就可以上场了。
 ***占坑[ApplicationEvent中的观察者模式，源码实现]()***
 #### 1.4 单例模式
+```
 
+```
+#### 1.5 创建者模式
+```
+
+```
+#### 1.6 原型模式
+```
+
+```
+#### 1.7 适配器模式
+```
+
+```
+
+#### 1.8 策略模式
+```
+
+```
+
+#### 1.9 装饰模式
+```
+
+```
