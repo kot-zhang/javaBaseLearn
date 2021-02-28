@@ -102,7 +102,7 @@ public class EncryptFactory {
     }
 }
 ```
-***占个坑[spring中的Factory]()***
+***[占坑spring中的Factory]()***
 
 
 #### 1.2 代理模式
@@ -173,7 +173,7 @@ public class AgentHandler implements InvocationHandler {
     }
 }
 ```
-***占坑[SpringAop中的代理，及Cglib和JDK代理区别]()***  
+***[占坑SpringAop中的代理，及Cglib和JDK代理区别]()***  
 **记一次生产事故导致，其中就是代理类的出现了问题（rabbitMq日志记录）**
 
 
@@ -250,7 +250,7 @@ public static void main(String[] args) {
 JDK也提供了工具方法：Observable 被观察者类 和  Observer 观察者接口 。  
 结合实际业务，观察者模式带给我们的是模块的解耦。比如客户首次注册，会奖励一些积分，下次需要再奖励一个徽章。这种业务类型就可以用观察者模式。
 从上面代码看，"被观察者"需要维护"观察者"，而且在通知"观察者"是同步调用，这种方式其实对系统也是不友好的。这个时候***ApplicationEvent***就可以上场了。  
-***占坑[ApplicationEvent中的观察者模式，源码实现]()***
+***[占坑ApplicationEvent中的观察者模式，源码实现]()***
 #### 1.4 单例模式
 ***单例模式 ：防止多次创建作用相同的对象，一次创建多次使用，避免多次创建导致不必要的内存开销。***  
 单例模式常见的有两种实现方法：懒汉模式，饿汉模式。  
@@ -294,9 +294,9 @@ public class HungrySingleton {
 }
 
 ```
-***占坑[Spring中bean创建的单例模式]()***  
-***占坑[volatile关键字]()***  
-***占坑[static关键字]()***
+***[占坑Spring中bean创建的单例模式]()***  
+***[占坑volatile关键字]()***  
+***[占坑static关键字]()***
 #### 1.5 创建者模式
 ***创建者模式：解决了构造函数含有较多了参数，让创建的对象必然是属于可用状态***
 ```
