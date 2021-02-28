@@ -487,7 +487,9 @@ public class Client {
 }
 ```
 
-[参考大宽宽回答：Builder](https://www.zhihu.com/question/326142180/answer/697172067)
+***[参考大宽宽回答：Builder](https://www.zhihu.com/question/326142180/answer/697172067)***  
+***[参考设计模式之Builder模式](https://www.jianshu.com/p/e2a2fe3555b9)***  
+***[占坑 spring中的创建者模式]()***
 #### 1.6 原型模式
 ```
 
