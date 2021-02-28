@@ -17,6 +17,7 @@
     - [2.4 泛型](#24-泛型)
     - [2.5 拷贝(浅拷贝,深拷贝)。](#25-拷贝)
     - [2.6 关键字final,this,super](#26-关键字final,this,super)
+    - [2.7 内部类](#27-内部类)
   - [3 集合](#3-集合)
   - [4 线程](#4-线程)
   - [5 文件与io流](#5-文件与io流)
@@ -248,7 +249,7 @@ public static void main(String[] args) {
 ```
 JDK也提供了工具方法：Observable 被观察者类 和  Observer 观察者接口 。  
 结合实际业务，观察者模式带给我们的是模块的解耦。比如客户首次注册，会奖励一些积分，下次需要再奖励一个徽章。这种业务类型就可以用观察者模式。
-从上面代码看，"被观察者"需要维护"观察者"，而且在通知"观察者"是同步调用，这种方式其实对系统也是不友好的。这个时候***ApplicationEvent***就可以上场了。
+从上面代码看，"被观察者"需要维护"观察者"，而且在通知"观察者"是同步调用，这种方式其实对系统也是不友好的。这个时候***ApplicationEvent***就可以上场了。  
 ***占坑[ApplicationEvent中的观察者模式，源码实现]()***
 #### 1.4 单例模式
 ***单例模式 ：防止多次创建作用相同的对象，一次创建多次使用，避免多次创建导致不必要的内存开销。***  
@@ -293,13 +294,200 @@ public class HungrySingleton {
 }
 
 ```
-占坑[Spring中bean创建的单例模式]()  
-占坑[volatile关键字]()  
-占坑[static关键字]()
+***占坑[Spring中bean创建的单例模式]()***  
+***占坑[volatile关键字]()***  
+***占坑[static关键字]()***
 #### 1.5 创建者模式
+***创建者模式：解决了构造函数含有较多了参数，让创建的对象必然是属于可用状态***
+```
+public class Person {
+    /**
+     * 必须属性
+     */
+    private final String name;
+    /**
+     * 必须属性
+     */
+    private final Integer age;
+
+    private final String address;
+
+    private final String phone;
+
+    //final成员的要求是最晚构造函数得初始化，否则编译报错
+
+    public Person(String name, Integer age) {
+        this(name, age, "", "");
+    }
+
+    public Person(String name, Integer age, String address) {
+        this(name, age, address, "");
+    }
+
+    public Person(String name, Integer age, String address, String phone) {
+        this.name = name;
+        this.age = age;
+        this.address = address;
+        this.phone = phone;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+}
+```
+当Person类的成员属性为不可变的final的。参数少的情况下可以勉强维持，一旦参数多了可读性和维护性都比较差了。当我想给name,age,phone赋值构造方法就满足不了了。  
+我们可以看看我们的第二种方法，给javaBean设置一个空的构造函数，提供setxx方法去赋值对象属性
+```
+public class Person2 {
+    /**
+     * 必须属性
+     */
+    private String name;
+    /**
+     * 必须属性
+     */
+    private Integer age;
+
+    private String address;
+
+    private String phone;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+}
+```
+这种也会存在一些问题"对象会产生不一致的状态",你想要将setxx方法调用完成后，对象才属于valid状态。
+当调用了部分setxx方法时候，对象实际没有被创建完成，对象被调用，这个时候就会存在问题。  
+接下来就是通过builder模式解决上面的问题了。
+```
+public class Person3 {
+
+    /**
+     * 必须属性
+     */
+    private final String name;
+    /**
+     * 必须属性
+     */
+    private final Integer age;
+
+    private String address;
+
+    private String phone;
+
+    public String getName() {
+        return name;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    private Person3(PersonBuilder personBuilder) {
+        this.address = personBuilder.address;
+        this.age = personBuilder.age;
+        this.name = personBuilder.name;
+        this.phone = personBuilder.phone;
+    }
+
+    public static class PersonBuilder {
+        /**
+         * 必须属性
+         */
+        private final String name;
+        /**
+         * 必须属性
+         */
+        private final Integer age;
+
+        private String address;
+
+        private String phone;
+
+        /**
+         * 构造方法传必填函数
+         */
+        public PersonBuilder(String name, Integer age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        public PersonBuilder address(String address) {
+            this.address = address;
+            return this;
+        }
+
+        public PersonBuilder phone(String phone) {
+            this.phone = phone;
+            return this;
+        }
+
+        public Person3 build() {
+            return new Person3(this);
+        }
+    }
+}
+
+
+public class Client {
+    public static void main(String[] args) {
+        Person3 person3 = new Person3.PersonBuilder("zhang", 12).address("武汉").phone("159xxxxxx795").build();
+    }
+}
 ```
 
-```
+[参考大宽宽回答：Builder](https://www.zhihu.com/question/326142180/answer/697172067)
 #### 1.6 原型模式
 ```
 
