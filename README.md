@@ -251,9 +251,51 @@ JDK也提供了工具方法：Observable 被观察者类 和  Observer 观察者
 从上面代码看，"被观察者"需要维护"观察者"，而且在通知"观察者"是同步调用，这种方式其实对系统也是不友好的。这个时候***ApplicationEvent***就可以上场了。
 ***占坑[ApplicationEvent中的观察者模式，源码实现]()***
 #### 1.4 单例模式
+***单例模式 ：防止多次创建作用相同的对象，一次创建多次使用，避免多次创建导致不必要的内存开销。***  
+单例模式常见的有两种实现方法：懒汉模式，饿汉模式。  
+懒汉模式：调用的时候去创建，创建的时候要考虑到线程安全的问题。  
+饿汉模式：类加载的时候去创建，本身是线程安全的。
 ```
+/**
+ * 懒加载
+ */
+public class LazySingleton {
+
+    private LazySingleton() {
+
+    }
+
+    private static volatile LazySingleton instance;
+
+    public static LazySingleton getInstance() {
+        if (instance == null) {
+            synchronized (LazySingleton.class) {
+                if (instance == null) {
+                    instance = new LazySingleton();
+                }
+            }
+        }
+        return instance;
+    }
+}
+
+
+/**
+ * 饿汉模式
+ */
+public class HungrySingleton {
+
+    private final static HungrySingleton instance = new HungrySingleton();
+
+    public static HungrySingleton getInstance() {
+        return instance;
+    }
+}
 
 ```
+占坑[Spring中bean创建的单例模式]()  
+占坑[volatile关键字]()  
+占坑[static关键字]()
 #### 1.5 创建者模式
 ```
 
