@@ -495,10 +495,81 @@ public class Client {
 
 ```
 #### 1.7 适配器模式
+***适配器模式：增加一个新的适配器类来解决接口不兼容的问题，使得原本没有任何关系的类可以协同工作。适配器模式分两种：类的适配器模式， 对象的适配器模式；***  
+类适配器模式：
 ```
 
-```
+/**
+ * 目标接口，用于被客户端调用
+ */
+public interface Target {
 
+    void call();
+}
+
+
+/**
+ * 被适配对象
+ */
+public class Adaptee {
+
+
+    public void make() {
+        System.out.println("Tagert: make");
+    }
+}
+
+
+/**
+ * 适配对象
+ */
+public class Adapter extends Adaptee implements Target {
+
+
+    public void call() {
+        //do something
+        super.make();
+    }
+}
+```
+对象适配器模式：
+```
+/**
+ * 目标接口类
+ */
+public interface Target {
+
+    void call();
+}
+
+
+/**
+ * 被适配对象
+ */
+public class Adaptee {
+
+
+    public void make() {
+        System.out.println("Target:make");
+    }
+}
+
+
+public class Adapter implements Target {
+
+    private Adaptee adaptee;
+
+    Adapter(Adaptee adaptee) {
+        this.adaptee = adaptee;
+    }
+
+    public void call() {
+        //do something
+        adaptee.make();
+    }
+}
+```
+[占坑]
 #### 1.8 策略模式
 ```
 
