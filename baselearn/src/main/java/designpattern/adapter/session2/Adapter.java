@@ -1,4 +1,4 @@
-package Adapter.session2;
+package designpattern.adapter.session2;
 
 public class Adapter implements Target {
 
