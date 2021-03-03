@@ -555,7 +555,8 @@ public class Adapter implements Target {
     }
 }
 ```
-[占坑]
+[占坑 Spring MVC中的适配模式 DispatcherServlet ，HandlerAdapter]()
+[占坑 一个请求到的整个处理过程SpringMVC]()
 #### 1.8 策略模式
 ```
 
