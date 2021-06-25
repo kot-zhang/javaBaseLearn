@@ -1,7 +1,7 @@
-###Spring Bean 扩展点
+##Spring Bean 扩展点
 对于框架设计而言，能够方便扩展是一个必要的条件。
 
-####ApplicationContextAware
+##ApplicationContextAware
 ApplicationContext是Spring的容器，管理Bean,控制Bean的生命周期。  
 日常编码中用得比较常见的是通过ApplicationContext去获取需要使用的Bean。如何获取到ApplicationContext就是一个问题了。总不能去New吧。
 所以Spring 提供了一个接口ApplicationContextAware去获取到我们需要的上下文ApplicationContext
