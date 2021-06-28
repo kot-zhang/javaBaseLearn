@@ -65,9 +65,8 @@ public class Ex_TestBean {
 ```
 
 
-####BeanDefinitionRegistryPostProcessor
-BeanDefinitionRegistryPostProcessor
-
+####BeanDefinitionRegistryPostProcessor与BeanFactoryPostProcessor
+BeanDefinitionRegistryPostProcessor与BeanFactoryPostProcessor都是作用beanDefinition的
 
 
 
