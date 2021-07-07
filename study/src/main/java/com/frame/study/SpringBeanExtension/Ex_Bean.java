@@ -11,6 +11,6 @@ public class Ex_Bean {
 
 
     public void say() {
-
+        System.out.println("Ex_Bean say what!!!!");
     }
 }
