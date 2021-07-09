@@ -1,16 +1,16 @@
 package com.frame.study.designParrent.ChainOfResponsibility;
 
-
-@RouteAnno(order = 1, name = "AuthorCheckPlugin")
-public class AuthorCheckPlugin implements RouterChain {
-
+/**
+ * 权限校验
+ */
+@PluginAnno(order = 1, name = "AuthorCheckPlugin")
+public class AuthorCheckPlugin implements RequestPlugin {
 
     @Override
-    public void route(RouteChainWrapper routeChainWrapper) {
+    public void interceptor(InterceptorChainWrapper routeChainWrapper) {
         System.out.println("开始路由 ： AuthorCheckPlugin");
-        routeChainWrapper.route();
+        routeChainWrapper.interceptor();
     }
-
 
     @Override
     public boolean enable() {

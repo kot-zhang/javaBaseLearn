@@ -5,11 +5,14 @@ import org.springframework.stereotype.Component;
 
 import java.lang.annotation.*;
 
+/**
+ * 插件注解
+ */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Component
-public @interface RouteAnno {
+public @interface PluginAnno {
 
     int order() default Ordered.HIGHEST_PRECEDENCE;
 

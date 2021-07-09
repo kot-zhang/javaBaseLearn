@@ -1,14 +1,16 @@
 package com.frame.study.designParrent.ChainOfResponsibility;
 
-@RouteAnno(order = 2, name = "ParseHandlePlugin")
-public class ParseHandlePlugin implements RouterChain {
+/**
+ * 解析处理
+ */
+@PluginAnno(order = 2, name = "ParseHandlePlugin")
+public class ParseHandlePlugin implements RequestPlugin {
 
     @Override
-    public void route(RouteChainWrapper routeChainWrapper) {
+    public void interceptor(InterceptorChainWrapper routeChainWrapper) {
         System.out.println("开始路由 ： ParseHandlePlugin");
-        routeChainWrapper.route();
+        routeChainWrapper.interceptor();
     }
-
 
     @Override
     public boolean enable() {
