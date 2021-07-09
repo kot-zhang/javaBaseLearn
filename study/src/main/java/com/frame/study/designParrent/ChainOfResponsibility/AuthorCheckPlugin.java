@@ -3,7 +3,7 @@ package com.frame.study.designParrent.ChainOfResponsibility;
 /**
  * 权限校验
  */
-@PluginAnno(order = 1, name = "AuthorCheckPlugin")
+@PluginAnno(order = 3, name = "AuthorCheckPlugin")
 public class AuthorCheckPlugin implements RequestPlugin {
 
     @Override

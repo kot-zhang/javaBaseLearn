@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * 路由链
+ * 插件调用链
  */
 public class InterceptorChainWrapper {
     private final AtomicInteger atomicInteger = new AtomicInteger(-1);
@@ -15,6 +15,9 @@ public class InterceptorChainWrapper {
         this.requestPlugins = requestPlugins;
     }
 
+    /**
+     * 实际触发
+     */
     public void interceptor() {
         if (atomicInteger.incrementAndGet() == requestPlugins.size()) {
             return;
@@ -26,5 +29,4 @@ public class InterceptorChainWrapper {
         }
         plugin.interceptor(this);
     }
-
 }

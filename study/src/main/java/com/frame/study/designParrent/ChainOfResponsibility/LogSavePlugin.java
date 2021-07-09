@@ -3,7 +3,7 @@ package com.frame.study.designParrent.ChainOfResponsibility;
 /**
  * 日志处理
  */
-@PluginAnno(order = 3, name = "LogSavePlugin")
+@PluginAnno(order = 1, name = "LogSavePlugin")
 public class LogSavePlugin implements RequestPlugin {
 
     @Override

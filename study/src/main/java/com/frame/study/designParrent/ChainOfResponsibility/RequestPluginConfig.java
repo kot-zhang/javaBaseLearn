@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 路由配置
+ * 配置插件
  */
 @Configuration
 public class RequestPluginConfig {

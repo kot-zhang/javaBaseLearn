@@ -2,7 +2,7 @@ package com.frame.study.designParrent.ChainOfResponsibility;
 
 
 /**
- * 路由插件接口定义
+ * 插件接口定义
  */
 public interface RequestPlugin {
 
