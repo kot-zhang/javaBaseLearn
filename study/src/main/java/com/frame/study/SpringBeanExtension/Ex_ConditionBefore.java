@@ -1,14 +1,14 @@
 package com.frame.study.SpringBeanExtension;
 
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.context.annotation.Configuration;
+
 import javax.annotation.PostConstruct;
 
+@Configuration
+@AutoConfigureBefore(Ex_Condition.class)
 public class Ex_ConditionBefore {
-
-
-    public void say() {
-        System.out.println("Ex_ConditionBefore    处理");
-    }
-
 
     @PostConstruct
     public void add() {

@@ -1,4 +1,6 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.frame.study.SpringBeanExtension.Ex_Condition,\
 com.frame.study.SpringBeanExtension.Ex_ConditionBefore,\
-com.frame.study.SpringBeanExtension.Ex_Condition
+com.frame.study.SpringBeanExtension.Ex_After
+
 

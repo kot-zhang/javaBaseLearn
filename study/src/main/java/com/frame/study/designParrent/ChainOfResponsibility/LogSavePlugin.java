@@ -1,5 +1,7 @@
 package com.frame.study.designParrent.ChainOfResponsibility;
 
+import org.springframework.beans.factory.InitializingBean;
+
 /**
  * 日志处理
  */
