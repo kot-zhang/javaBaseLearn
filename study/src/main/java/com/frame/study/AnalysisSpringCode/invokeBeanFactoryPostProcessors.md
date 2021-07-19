@@ -206,3 +206,84 @@ AnnotationConfigUtils.registerAnnotationConfigProcessors()添加的默认处理�
 @3加载所有实现了BeanFactoryPostProcessor，执行postProcessBeanFactory方法
 从代码执行的顺序也可以知道BeanDefinitionRegistryPostProcessor是在BeanFactoryPostProcessor之前执行
 
+####测试论证
+```
+@Component
+public class BeanDefinitionRegistryPostProcessorOrder1 implements BeanDefinitionRegistryPostProcessor, Ordered {
+
+    @Override
+    public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
+        System.out.println("BeanDefinitionRegistryPostProcessorOrder1:::"+"postProcessBeanDefinitionRegistry");
+    }
+
+    @Override
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        System.out.println("BeanDefinitionRegistryPostProcessorOrder1:::"+"postProcessBeanFactory");
+    }
+
+    @Override
+    public int getOrder() {
+        return 1;
+    }
+}
+
+@Component
+public class BeanDefinitionRegistryPostProcessorOrder2 implements BeanDefinitionRegistryPostProcessor, Ordered {
+
+    @Override
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        System.out.println("BeanDefinitionRegistryPostProcessorOrder2:::" + "postProcessBeanFactory");
+    }
+
+    @Override
+    public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
+        System.out.println("BeanDefinitionRegistryPostProcessorOrder2:::" + "postProcessBeanDefinitionRegistry");
+    }
+    
+    @Override
+    public int getOrder() {
+        return 2;
+    }
+}
+
+
+@Component
+public class BeanFactoryPostProcessorOrder1 implements BeanFactoryPostProcessor, Ordered {
+
+    @Override
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        System.out.println("BeanFactoryPostProcessorOrder1:::"+"postProcessBeanFactory");
+    }
+
+    @Override
+    public int getOrder() {
+        return 1;
+    }
+}
+
+
+@Component
+public class BeanFactoryPostProcessorOrder2 implements BeanFactoryPostProcessor, Ordered {
+
+    @Override
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        System.out.println("BeanFactoryPostProcessorOrder2:::" + "postProcessBeanFactory");
+    }
+
+    @Override
+    public int getOrder() {
+        return 2;
+    }
+}
+
+
+输出结果：
+
+BeanDefinitionRegistryPostProcessorOrder1:::postProcessBeanDefinitionRegistry
+BeanDefinitionRegistryPostProcessorOrder2:::postProcessBeanDefinitionRegistry
+BeanDefinitionRegistryPostProcessorOrder1:::postProcessBeanFactory
+BeanDefinitionRegistryPostProcessorOrder2:::postProcessBeanFactory
+BeanFactoryPostProcessorOrder1:::postProcessBeanFactory
+BeanFactoryPostProcessorOrder2:::postProcessBeanFactory
+```
+####实战
