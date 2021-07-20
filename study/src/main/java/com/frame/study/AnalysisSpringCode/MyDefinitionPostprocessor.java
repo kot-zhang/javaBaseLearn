@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.Set;
 
 @Component
 public class MyDefinitionPostprocessor implements BeanDefinitionRegistryPostProcessor, ApplicationContextAware {
@@ -25,7 +24,7 @@ public class MyDefinitionPostprocessor implements BeanDefinitionRegistryPostProc
         DefinitionAnnoScanner scanner = new DefinitionAnnoScanner(registry);
         scanner.setAnnotationClass(DefinitionAnno.class);
         scanner.registerFilters();
-        Set<BeanDefinitionHolder> beanDefinitionHolders  = scanner.doScan(StringUtils.toStringArray(packages));
+        scanner.doScan(StringUtils.toStringArray(packages));
     }
 
     @Override

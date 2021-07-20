@@ -287,3 +287,64 @@ BeanFactoryPostProcessorOrder1:::postProcessBeanFactory
 BeanFactoryPostProcessorOrder2:::postProcessBeanFactory
 ```
 ####实战
+mybatis的@Mapper注解，dubbo的@Reference，@Service注解这些都不是Spring的注解,都是各个框架自定义的注解。
+但是他们这些注解还是可以将目标对象交由Spring去管理呢。这里就可以用BeanDefinitionRegistryPostProcessor来将我们自定义的转化
+为BeanDefinition。这个也符合官方的建议:**BeanDefinitionRegistryPostProcessor用来添加BeanDefinition,BeanFactoryPostProcessor用于修改BeanDefinition。
+BeanDefinitionRegistryPostProcessor优先于BeanFactoryPostProcessor执行**"  
+先定义下注解
+```
+/**
+ * 自定义注解
+ */
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface DefinitionAnno {
+}
+```
+需要被扫描的bean
+```
+@DefinitionAnno
+public class DefinitionBean1 {
+
+}
+
+@DefinitionAnno
+public class DefinitionBean2 {
+
+}
+http://git.yijiupidev.com:81/payhub/payhub-channel-protocol.git
+```
+自定义注解扫描器
+```
+/**
+ * 注解扫描器
+ */
+public class DefinitionAnnoScanner extends ClassPathBeanDefinitionScanner {
+
+    private Class<? extends Annotation> annotationClass;
+
+
+    public void setAnnotationClass(Class<? extends Annotation> annotationClass) {
+        this.annotationClass = annotationClass;
+    }
+
+    public DefinitionAnnoScanner(BeanDefinitionRegistry registry) {
+        super(registry, false);
+    }
+
+    @Override
+    public Set<BeanDefinitionHolder> doScan(String... basePackages) {
+        Set<BeanDefinitionHolder> beanDefinitions = super.doScan(basePackages);
+        return beanDefinitions;
+    }
+
+    public void registerFilters() {
+        if (this.annotationClass != null) {
+            addIncludeFilter(new AnnotationTypeFilter(this.annotationClass));
+        }
+    }
+}
+
+```
+

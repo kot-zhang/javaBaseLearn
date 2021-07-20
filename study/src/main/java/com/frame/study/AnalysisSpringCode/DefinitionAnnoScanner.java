@@ -6,10 +6,12 @@ import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 
 import java.lang.annotation.Annotation;
-import java.util.Arrays;
 import java.util.Set;
 
-public class DefinitionAnnoScanner  extends ClassPathBeanDefinitionScanner {
+/**
+ * 注解扫描器
+ */
+public class DefinitionAnnoScanner extends ClassPathBeanDefinitionScanner {
 
     private Class<? extends Annotation> annotationClass;
 
@@ -22,15 +24,16 @@ public class DefinitionAnnoScanner  extends ClassPathBeanDefinitionScanner {
         super(registry, false);
     }
 
-
     @Override
     public Set<BeanDefinitionHolder> doScan(String... basePackages) {
         Set<BeanDefinitionHolder> beanDefinitions = super.doScan(basePackages);
         return beanDefinitions;
     }
 
-
-    public void  registerFilters(){
+    /**
+     * 添加需要扫描的
+     */
+    public void registerFilters() {
         if (this.annotationClass != null) {
             addIncludeFilter(new AnnotationTypeFilter(this.annotationClass));
         }
