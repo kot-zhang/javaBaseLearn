@@ -31,7 +31,7 @@ public class DefinitionAnnoScanner extends ClassPathBeanDefinitionScanner {
     }
 
     /**
-     * 添加需要扫描的
+     * 添加需要扫描的注解
      */
     public void registerFilters() {
         if (this.annotationClass != null) {

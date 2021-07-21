@@ -339,6 +339,9 @@ public class DefinitionAnnoScanner extends ClassPathBeanDefinitionScanner {
         return beanDefinitions;
     }
 
+   /**
+    * 添加需要扫描的注解
+    */
     public void registerFilters() {
         if (this.annotationClass != null) {
             addIncludeFilter(new AnnotationTypeFilter(this.annotationClass));
@@ -347,4 +350,5 @@ public class DefinitionAnnoScanner extends ClassPathBeanDefinitionScanner {
 }
 
 ```
+通过继承ClassPathBeanDefinitionScanner，添加需要被扫描的条件。这个后面会细聊，就不在这里做过多的解释了。  
 
