@@ -9,8 +9,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.stereotype.Component;
 
-@SpringBootApplication(scanBasePackages = {"com.frame.study.AnalysisSpringCode"})
+@SpringBootApplication
 @ImportResource(locations = {"classpath:BeanXml.xml"})
 @Ex_ImportAnno
 @EnableAsync

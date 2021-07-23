@@ -25,6 +25,7 @@ public class MyDefinitionPostprocessor implements BeanDefinitionRegistryPostProc
         scanner.setAnnotationClass(DefinitionAnno.class);
         scanner.registerFilters();
         scanner.doScan(StringUtils.toStringArray(packages));
+        System.out.println(registry.getBeanDefinitionNames().toString());
     }
 
     @Override

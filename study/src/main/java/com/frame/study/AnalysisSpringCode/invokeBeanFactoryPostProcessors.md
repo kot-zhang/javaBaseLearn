@@ -351,4 +351,32 @@ public class DefinitionAnnoScanner extends ClassPathBeanDefinitionScanner {
 
 ```
 通过继承ClassPathBeanDefinitionScanner，添加需要被扫描的条件。这个后面会细聊，就不在这里做过多的解释了。  
+```
+@Component
+public class MyDefinitionPostprocessor implements BeanDefinitionRegistryPostProcessor, ApplicationContextAware {
 
+    private ApplicationContext applicationContext;
+
+    @Override
+    public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
+        List<String> packages = AutoConfigurationPackages.get(this.applicationContext);
+        DefinitionAnnoScanner scanner = new DefinitionAnnoScanner(registry);
+        scanner.setAnnotationClass(DefinitionAnno.class);
+        scanner.registerFilters();
+        scanner.doScan(StringUtils.toStringArray(packages));
+    }
+
+    @Override
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
+}
+```
+添加MyDefinitionPostprocessor后置处理去扫描自定义的注解,这样就可以将标记的注解解析为beanDefinition,将对象交由spring管理。  
+结果：  
+![invokeBeanFactoryPostProcessors-2](https://img03.sogoucdn.com/app/a/100520146/58f7995861df6f78bc14bbd432dddeff)  
