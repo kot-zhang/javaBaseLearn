@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Component;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.frame.study.config")
 @ImportResource(locations = {"classpath:BeanXml.xml"})
 @Ex_ImportAnno
 @EnableAsync
