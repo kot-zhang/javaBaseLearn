@@ -1,0 +1,64 @@
+{
+    "openapi": "3.0.1",
+    "paths": {
+        "": {
+            "post": {
+                "summary": "未命名文档",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "pwd": {
+                                        "nullable": false,
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "username": {
+                                        "nullable": false,
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "headers": {
+                        },
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "nullable": false,
+                                            "description": "",
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "info": {
+        "contact": {
+            "name": "user7915"
+        },
+        "description": "",
+        "termsOfService": "http://www.xiaoyaoji.cn",
+        "title": "测试项目",
+        "version": "2023-04-21"
+    }
+}
